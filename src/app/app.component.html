@@ -1,0 +1,35 @@
+<div style="display: flex; flex-direction: row; width: 100%; gap: 50px">
+  <mat-card class="flex-1">
+    <mat-form-field>
+      <mat-label>Sanction Lists</mat-label>
+      <mat-select (valueChange)="selectList($event)">
+        <mat-option
+          *ngFor="let list of lists | async"
+          [value]="list.PrimaryKey"
+          >{{ list.Name }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+    <h2>List Updates</h2>
+    <mat-selection-list
+      [multiple]="false"
+      (selectionChange)="selectVersion($event)"
+    >
+      <mat-list-option
+        *ngFor="let version of versions | async"
+        [value]="version"
+      >
+        {{ version.ContextDate }}: Added: {{ version.Added }}, Modified:
+        {{ version.Modified }}, Removed: {{ version.Removed }}
+      </mat-list-option>
+    </mat-selection-list>
+  </mat-card>
+  <mat-card class="flex-1">
+    <h2>Details</h2>
+    <mat-list>
+      <mat-list-item *ngFor="let detailId of details">
+        <app-detail-item [detailId]="detailId"></app-detail-item>
+      </mat-list-item>
+    </mat-list>
+  </mat-card>
+</div>
